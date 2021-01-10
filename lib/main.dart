@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var _message;
   static var _janken = <String>['ぐー','ちょき','ぱー'];
+  final controller = TextEditingController();
 
   @override
   void initState() {
@@ -82,10 +83,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     alignment: Alignment.center,
                     child:Padding(
                       padding: EdgeInsets.all(25.0),
-                      child: Text(
-                        'Second Item',
+                      child: TextField(
+                        onChanged: textChanged,
+                        controller: controller,
                         style: TextStyle(
-                          fontSize: 32.0,
+                          fontSize: 28.0,
+                          color: const Color(0xFF000000),
                           fontWeight: FontWeight.w400,
                           fontFamily: "Roboto",
                         ),
@@ -125,7 +128,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
   void buttonPressed(){
     setState(() {
-      _message = (_janken..shuffle()).first;
+      _message = controller.text + (_janken..shuffle()).first;
+    });
+  }
+  void textChanged(String val){
+    setState(() {
+      _message = val;
     });
   }
   void fabPressed() {}
