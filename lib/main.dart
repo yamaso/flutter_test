@@ -30,6 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var _message;
   static var _janken = <String>['ぐー','ちょき','ぱー'];
   final controller = TextEditingController();
+  bool _checked = false;
+  var cardColor = Color(0xFFFFFFFF);
 
   @override
   void initState() {
@@ -46,6 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body:
       new Card(
         margin: EdgeInsets.all(25.0),
+        color: cardColor,
         child: new Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -120,6 +123,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
 
+              new FractionallySizedBox(
+                widthFactor: 0.5,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+
+                  children: <Widget>[
+                    Switch(
+                      value: _checked,
+                      onChanged: checkChenged,
+                    ),
+
+                    Text(
+                      "Dark Mode",
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: "Roboto"
+                      ),
+                    )
+                  ]
+                ),
+              ),
+
             ]
 
         ),
@@ -134,6 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void textChanged(String val){
     setState(() {
       _message = val;
+    });
+  }
+  void checkChenged(bool value){
+    setState(() {
+      _checked = value;
+      cardColor = value ? Color(0x4D00000F) : Color(0xFFFFFFFF);
     });
   }
   void fabPressed() {}
