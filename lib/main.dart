@@ -27,6 +27,15 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var _message;
+  static var _janken = <String>['ぐー','ちょき','ぱー'];
+
+  @override
+  void initState() {
+    _message = 'ok';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -44,14 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: EdgeInsets.all(25.0),
                   child: Container(
                     color: const Color(0xFFE6CF3E),
+                    alignment: Alignment.center,
                     child: Padding(
                       padding: EdgeInsets.all(25.0),
                       child: Text(
-                        'First Item',
+                        _message,
                         style: TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.w400,
                           fontFamily: "Roboto",
+
                         ),
                       ),
                     ),
@@ -68,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: EdgeInsets.all(25.0),
                   child:Container(
                     color: const Color(0xFFFCD451),
+                    alignment: Alignment.center,
                     child:Padding(
                       padding: EdgeInsets.all(25.0),
                       child: Text(
@@ -91,17 +103,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Padding(
                   padding: EdgeInsets.all(25.0),
                   child:Container(
-                    color: const Color(0xFFE6AE3E),
+                    color: const Color(0x80E6AE3E),
                     child: Padding(
                       padding: EdgeInsets.all(25.0),
-                      child: Text(
-                        'Third Item',
-                        style: TextStyle(
-                          fontSize: 32.0,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: "Roboto",
-                        ),
-                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.android_sharp),
+                        iconSize: 50.0,
+                        color: const Color(0xFFFFFFFF),
+                        onPressed: buttonPressed,
+                      )
                     ),
                   ),
                 ),
@@ -112,6 +122,11 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
     );
+  }
+  void buttonPressed(){
+    setState(() {
+      _message = (_janken..shuffle()).first;
+    });
   }
   void fabPressed() {}
 }
