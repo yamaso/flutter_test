@@ -31,41 +31,59 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('App Name'),
+        title: new Text('Yamaso Test'),
       ),
       body:
       new Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            new Text(
-              "GOnne",
-              style: new TextStyle(fontSize:12.0,
-                  color: const Color(0xFF000000),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: "Roboto"),
+            new Expanded(
+              child:Container(
+                color: const Color(0xFFE6CF3E),
+                child: Text(
+                  'First Item',
+                  style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto",
+                  ),
+                ),
+              ),
             ),
 
-            new Text(
-              "sannnga",
-              style: new TextStyle(fontSize:12.0,
-                  color: const Color(0xFF000000),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: "Roboto"),
+            new Expanded(
+              child:Container(
+                color: const Color(0xFFFCD451),
+                child: Text(
+                  'Second Item',
+                  style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto",
+                  ),
+                ),
+              ),
             ),
 
-            new Text(
-              "ONE11",
-              style: new TextStyle(fontSize:12.0,
-                  color: const Color(0xFF000000),
-                  fontWeight: FontWeight.w200,
-                  fontFamily: "Roboto"),
-            )
+            new Expanded(
+              child:Container(
+                color: const Color(0xFFE6AE3E),
+                child: Text(
+                  'Third Item',
+                  style: TextStyle(
+                    fontSize: 32.0,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: "Roboto",
+                  ),
+                ),
+              ),
+            ),
+
           ]
 
       ),
 
     );
   }
+  void fabPressed() {}
 }
