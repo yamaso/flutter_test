@@ -34,81 +34,83 @@ class _MyHomePageState extends State<MyHomePage> {
         title: new Text('Yamaso Test'),
       ),
       body:
-      new Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            new Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(25.0),
-                child: Container(
-                  color: const Color(0xFFE6CF3E),
-                  child: Padding(
-                    padding: EdgeInsets.all(25.0),
-                    child: Text(
-                      'First Item',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
+      new Card(
+        margin: EdgeInsets.all(25.0),
+        child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(25.0),
+                  child: Container(
+                    color: const Color(0xFFE6CF3E),
+                    child: Padding(
+                      padding: EdgeInsets.all(25.0),
+                      child: Text(
+                        'First Item',
+                        style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Roboto",
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
 
-            Padding (
-              padding: EdgeInsets.all(25.0),
-            ),
-
-            new Expanded(
-              child: Padding(
+              Padding (
                 padding: EdgeInsets.all(25.0),
-                child:Container(
-                  color: const Color(0xFFFCD451),
-                  child:Padding(
-                    padding: EdgeInsets.all(25.0),
-                    child: Text(
-                      'Second Item',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
+              ),
+
+              new Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(25.0),
+                  child:Container(
+                    color: const Color(0xFFFCD451),
+                    child:Padding(
+                      padding: EdgeInsets.all(25.0),
+                      child: Text(
+                        'Second Item',
+                        style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Roboto",
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
 
-            Padding (
-              padding: EdgeInsets.all(25.0),
-            ),
-
-            new Expanded(
-              child: Padding(
+              Padding (
                 padding: EdgeInsets.all(25.0),
-                child:Container(
-                  color: const Color(0xFFE6AE3E),
-                  child: Padding(
-                    padding: EdgeInsets.all(25.0),
-                    child: Text(
-                      'Third Item',
-                      style: TextStyle(
-                        fontSize: 32.0,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: "Roboto",
+              ),
+
+              new Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(25.0),
+                  child:Container(
+                    color: const Color(0xFFE6AE3E),
+                    child: Padding(
+                      padding: EdgeInsets.all(25.0),
+                      child: Text(
+                        'Third Item',
+                        style: TextStyle(
+                          fontSize: 32.0,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: "Roboto",
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
 
-          ]
+            ]
 
+        ),
       ),
-
     );
   }
   void fabPressed() {}
