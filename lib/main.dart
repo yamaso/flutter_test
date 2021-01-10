@@ -32,6 +32,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final controller = TextEditingController();
   bool _checked = false;
   var cardColor = Color(0xFFFFFFFF);
+  var bgColor = Color(0xFFfafafa);
+  var switchColor = Color(0xFF0a0a0a);
 
   @override
   void initState() {
@@ -42,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: bgColor,
       appBar: new AppBar(
         title: new Text('Yamaso Test'),
       ),
@@ -139,6 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     Text(
                       "Dark Mode",
                       style: TextStyle(
+                        color: switchColor,
                         fontSize: 15.0,
                         fontWeight: FontWeight.w400,
                         fontFamily: "Roboto"
@@ -167,7 +171,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void checkChenged(bool value){
     setState(() {
       _checked = value;
-      cardColor = value ? Color(0x4D00000F) : Color(0xFFFFFFFF);
+      cardColor = value ? Color(0xFF333333) : Color(0xFFFFFFFF);
+      bgColor = value ? Color(0xCC0a0a0a) : Color(0xFFfafafa);
+      switchColor = value ? Color(0xFFfafafa) : Color(0xFF0a0a0a);
     });
   }
   void fabPressed() {}
