@@ -156,8 +156,39 @@ class _MyHomePageState extends State<MyHomePage> {
 
         ),
       ),
+
+      floatingActionButton: new FloatingActionButton(
+          child: new Icon(Icons.access_alarm),
+          onPressed: buttonPressed_A
+      ),
     );
   }
+
+  void buttonPressed_A(){
+    showDialog(context: context,
+      builder: (BuildContext contect) => AlertDialog(
+        title: Text("Hello!"),
+        content: const Text("this is sample!"),
+        actions: <Widget>[
+          FlatButton(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop<String>(context, 'Cancel')
+          ),
+          FlatButton(
+            child: const Text('OK'),
+            onPressed: () => Navigator.pop<String>(context, 'OK')
+          )
+        ],
+      ),
+    ).then<void>((value) => resultAlert(value));
+  }
+
+  void resultAlert(String value) {
+    setState(() {
+      _message = 'selected: $value';
+    });
+  }
+
   void buttonPressed(){
     setState(() {
       _message = controller.text + (_janken..shuffle()).first;
