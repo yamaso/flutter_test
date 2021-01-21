@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+import 'dart:ui' as ui;
 
 void main() {
   runApp(new MyApp());
@@ -35,34 +37,196 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
   var bgColor = Color(0xFFfafafa);
   var switchColor = Color(0xFF0a0a0a);
 
+  /*
   final List<Tab> tabs = <Tab>[
     Tab(text: 'Button'),
     Tab(text: 'Tab'),
   ];
+ */
 
   List _items = <Widget>[];
+  List _pageList = <Widget>[];
 
-  TabController _tabController;
+  Widget _page;
+
+  //TabController _tabController;
 
   @override
   void initState() {
     _message = 'ok';
     super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
+    //_tabController = TabController(length: tabs.length, vsync: this);
 
     for (var i = 0; i < 10; i++) {
       var item = Container(
         color: i.isOdd ? Colors.blue : Colors.white,
         height: 100,
         child: Center(
-          child: Text(
-            'No, $i',
-            style: const TextStyle(fontSize: 32.0),
-          ),
+          child: MyRenderBoxWidget(),
         ),
       );
       _items.add(item);
     }
+
+    for (var j = 0; j < 3; j++) {
+      if (j == 0) {
+        var _pages =
+        Center(
+          child: Text(
+            'メニューからページを選んでね！',
+            style: TextStyle(
+              fontSize: 40.0,
+            ),
+          ),
+        );
+        _pageList.add(_pages);
+      }
+
+      if (j == 1) {
+        var _pages =
+        new Card(
+          margin: EdgeInsets.all(25.0),
+          color: cardColor,
+          child: new Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                new Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(25.0),
+                    child: Container(
+                      color: const Color(0xFFE6CF3E),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.all(25.0),
+                        child: Text(
+                          _message,
+                          style: TextStyle(
+                            fontSize: 32.0,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Roboto",
+
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(25.0),
+                ),
+
+                new Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(25.0),
+                    child: Container(
+                      color: const Color(0xFFFCD451),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.all(25.0),
+                        child: TextField(
+                          onChanged: textChanged,
+                          controller: controller,
+                          style: TextStyle(
+                            fontSize: 28.0,
+                            color: const Color(0xFF000000),
+                            fontWeight: FontWeight.w400,
+                            fontFamily: "Roboto",
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.all(25.0),
+                ),
+
+                new Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(25.0),
+                    child: Container(
+                      color: const Color(0x80E6AE3E),
+                      child: Padding(
+                          padding: EdgeInsets.all(25.0),
+                          child: IconButton(
+                            icon: const Icon(Icons.android_sharp),
+                            iconSize: 50.0,
+                            color: const Color(0xFFFFFFFF),
+                            onPressed: buttonPressed,
+                          )
+                      ),
+                    ),
+                  ),
+                ),
+
+                new FractionallySizedBox(
+                  widthFactor: 0.5,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+
+                      children: <Widget>[
+                        Switch(
+                          value: _checked,
+                          onChanged: checkChenged,
+                        ),
+
+                        Text(
+                          "Dark Mode",
+                          style: TextStyle(
+                              color: switchColor,
+                              fontSize: 15.0,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Roboto"
+                          ),
+                        )
+                      ]
+                  ),
+                ),
+
+              ]
+
+          ),
+        );
+        _pageList.add(_pages);
+      }
+
+      if (j == 2) {
+        var _pages =
+        new CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+                pinned: true,
+                expandedHeight: 200.0,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: const Text('Sliver App Bar'),
+                  background: Stack(
+                      fit: StackFit.expand,
+                      children: <Widget>[
+                        Image.network(
+                          'https://jpn.nec.com/solution/space/images/th_science.jpg',
+                          fit: BoxFit.fill,
+                        )
+                      ]
+                  ),
+                ),
+                actions: <Widget>[
+                  IconButton(icon: const Icon(Icons.android), onPressed: (){ print('pressed'); }, ),
+                ]
+            ),
+
+            SliverList(
+              delegate: SliverChildListDelegate(_items),
+            ),
+          ],
+        );
+        _pageList.add(_pages);
+      }
+    }
+    _page = _pageList[0];
   }
 
   @override
@@ -71,151 +235,34 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       backgroundColor: bgColor,
       appBar: new AppBar(
         title: new Text('Yamaso Test'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: tabs,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.all(20.0),
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.android),
+              title: Text('Button Test Page'),
+              onTap: (){
+                Navigator.pop(context);
+                tapItem(1);
+              }
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.android),
+              title: Text('Scroll Test'),
+              onTap: (){
+                Navigator.pop(context);
+                tapItem(2);
+              },
+            )
+          ],
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          new Card(
-            margin: EdgeInsets.all(25.0),
-            color: cardColor,
-            child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  new Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(25.0),
-                      child: Container(
-                        color: const Color(0xFFE6CF3E),
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: EdgeInsets.all(25.0),
-                          child: Text(
-                            _message,
-                            style: TextStyle(
-                              fontSize: 32.0,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Roboto",
 
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Padding (
-                    padding: EdgeInsets.all(25.0),
-                  ),
-
-                  new Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(25.0),
-                      child:Container(
-                        color: const Color(0xFFFCD451),
-                        alignment: Alignment.center,
-                        child:Padding(
-                          padding: EdgeInsets.all(25.0),
-                          child: TextField(
-                            onChanged: textChanged,
-                            controller: controller,
-                            style: TextStyle(
-                              fontSize: 28.0,
-                              color: const Color(0xFF000000),
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Roboto",
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  Padding (
-                    padding: EdgeInsets.all(25.0),
-                  ),
-
-                  new Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.all(25.0),
-                      child:Container(
-                        color: const Color(0x80E6AE3E),
-                        child: Padding(
-                            padding: EdgeInsets.all(25.0),
-                            child: IconButton(
-                              icon: const Icon(Icons.android_sharp),
-                              iconSize: 50.0,
-                              color: const Color(0xFFFFFFFF),
-                              onPressed: buttonPressed,
-                            )
-                        ),
-                      ),
-                    ),
-                  ),
-
-                  new FractionallySizedBox(
-                    widthFactor: 0.5,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-
-                        children: <Widget>[
-                          Switch(
-                            value: _checked,
-                            onChanged: checkChenged,
-                          ),
-
-                          Text(
-                            "Dark Mode",
-                            style: TextStyle(
-                                color: switchColor,
-                                fontSize: 15.0,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: "Roboto"
-                            ),
-                          )
-                        ]
-                    ),
-                  ),
-
-                ]
-
-            ),
-          ),
-
-          new CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                pinned: true,
-                expandedHeight: 200.0,
-                flexibleSpace: FlexibleSpaceBar(
-                  title: const Text('Sliver App Bar'),
-                  background: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Image.network(
-                        'https://jpn.nec.com/solution/space/images/th_science.jpg',
-                        fit: BoxFit.fill,
-                      )
-                    ]
-                  ),
-                ),
-                actions: <Widget>[
-                  IconButton(icon: const Icon(Icons.android), onPressed: (){ print('pressed'); }, ),
-                ]
-              ),
-
-              SliverList(
-                delegate: SliverChildListDelegate(_items),
-              ),
-            ],
-          ),
-        ]
-      ),
+      body: _page,
 
       floatingActionButton: new FloatingActionButton(
           child: new Icon(Icons.access_alarm),
@@ -223,6 +270,12 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       ),
 
     );
+  }
+
+  void tapItem(int value) {
+    setState(() {
+      _page = _pageList[value];
+    });
   }
 
   void buttonPressed_A(){
@@ -269,4 +322,39 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     });
   }
   void fabPressed() {}
+}
+
+class MyRenderBoxWidget extends SingleChildRenderObjectWidget{
+
+  @override
+  RenderObject createRenderObject(BuildContext context) {
+    return _MyRenderBox();
+  }
+}
+
+class _MyRenderBox extends RenderBox {
+
+  @override
+  bool hittest(HitTestResult result, {@required Offset position }) {
+    return true;
+  }
+
+  @override
+  void paint(PaintingContext context, Offset offset) {
+    Canvas c = context.canvas;
+    int dx = offset.dx.toInt();
+    int dy = offset.dy.toInt();
+
+    ui.ParagraphBuilder builder = ui.ParagraphBuilder (
+      ui.ParagraphStyle(textDirection: TextDirection.ltr),
+    )
+    ..pushStyle(ui.TextStyle(color: Colors.blue[700], fontSize: 38.0))
+    ..addText('No...');
+
+    ui.Paragraph paragraph = builder.build()
+      ..layout(ui.ParagraphConstraints(width: 300.0));
+
+    Offset off = Offset(dx + 50.0, dy +50.0);
+    c.drawParagraph(paragraph, offset);
+  }
 }
