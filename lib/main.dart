@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
         color: i.isOdd ? Colors.blue : Colors.white,
         height: 100,
         child: Center(
-          child: MyRenderBoxWidget(),
+          child: MyRenderBoxWidget(num: i.toString()),
         ),
       );
       _items.add(item);
@@ -326,14 +326,18 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
 class MyRenderBoxWidget extends SingleChildRenderObjectWidget{
 
+  String num;
+  MyRenderBoxWidget({this.num});
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return _MyRenderBox();
+    return _MyRenderBox(num: num);
   }
 }
 
 class _MyRenderBox extends RenderBox {
 
+  String num;
+  _MyRenderBox({this.num});
   @override
   bool hittest(HitTestResult result, {@required Offset position }) {
     return true;
@@ -349,7 +353,7 @@ class _MyRenderBox extends RenderBox {
       ui.ParagraphStyle(textDirection: TextDirection.ltr),
     )
     ..pushStyle(ui.TextStyle(color: Colors.blue[700], fontSize: 38.0))
-    ..addText('No...');
+    ..addText('No...' + num);
 
     ui.Paragraph paragraph = builder.build()
       ..layout(ui.ParagraphConstraints(width: 300.0));
