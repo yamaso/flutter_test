@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:ui' as ui;
+import 'package:flutter/services.dart';
+import 'dart:typed_data';
+import 'dart:async';
+
+import 'package:flutter/rendering.dart';
 
 void main() {
   runApp(new MyApp());
@@ -338,6 +343,7 @@ class _MyRenderBox extends RenderBox {
 
   String num;
   _MyRenderBox({this.num});
+
   @override
   bool hittest(HitTestResult result, {@required Offset position }) {
     return true;
@@ -358,7 +364,7 @@ class _MyRenderBox extends RenderBox {
     ui.Paragraph paragraph = builder.build()
       ..layout(ui.ParagraphConstraints(width: 300.0));
 
-    Offset off = Offset(dx + 50.0, dy +50.0);
-    c.drawParagraph(paragraph, offset);
+    Offset off = Offset(dx + 5.0, dy +5.0);
+    c.drawParagraph(paragraph, off);
   }
 }
